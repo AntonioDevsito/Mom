@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti, Mamá 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   RESET & TOKENS
+══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --rose:       #E91E8C;
+  --rose-light: #FF6EC7;
+  --rose-dark:  #B5116A;
+  --gold:       #F5A623;
+  --gold-light: #FFD23F;
+  --teal:       #00C9B1;
+  --purple:     #7C3AED;
+  --coral:      #FF6B6B;
+  --cream:      #FFF9F5;
+  --dark:       #12002A;
+  --dark-mid:   #1E0040;
+
+  --fs-xs:   clamp(.7rem,  1.8vw, .8rem);
+  --fs-sm:   clamp(.85rem, 2vw,   1rem);
+  --fs-md:   clamp(1rem,   2.5vw, 1.2rem);
+  --fs-lg:   clamp(1.3rem, 3.5vw, 1.8rem);
+  --fs-xl:   clamp(2rem,   6vw,   3.5rem);
+  --fs-hero: clamp(2.8rem, 11vw,  7rem);
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --shadow:    0 8px 40px rgba(0,0,0,.18);
+  --shadow-lg: 0 24px 80px rgba(0,0,0,.25);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--dark);
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: rgba(18,0,42,.6);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .3s;
+}
+.nav-logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, var(--rose-light), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links {
+  display: flex; gap: 1.5rem; list-style: none;
+}
+.nav-links a {
+  font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  transition: color .2s;
+}
+.nav-links a:hover { color: #fff; }
+@media (max-width: 480px) {
+  .nav-links { gap: .9rem; }
+  .nav-links a { font-size: .65rem; letter-spacing: .08em; }
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 6rem 1.5rem 4rem;
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse at 20% 0%,  #3D0070 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 100%, #6B0038 0%, transparent 55%),
+              var(--dark);
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); pointer-events: none; will-change: transform;
+}
+.orb-1 { width: min(600px,120vw); height: min(600px,120vw); background: var(--rose);   opacity: .22; top: -20%; left: -15%; animation: breathe 8s ease-in-out infinite; }
+.orb-2 { width: min(500px,100vw); height: min(500px,100vw); background: var(--purple); opacity: .18; bottom:-15%; right:-10%; animation: breathe 10s 2s ease-in-out infinite reverse; }
+.orb-3 { width: min(300px,60vw);  height: min(300px,60vw);  background: var(--teal);   opacity: .2;  top: 50%; left: 55%;    animation: breathe 7s 4s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+.floating-emojis { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.fe { position: absolute; animation: floatUp linear infinite; opacity: 0; }
+@keyframes floatUp {
+  0%   { transform: translateY(110%) rotate(0deg); opacity: 0; }
+  8%   { opacity: .7; }
+  92%  { opacity: .7; }
+  100% { transform: translateY(-15%) rotate(360deg); opacity: 0; }
+}
+
+.hero-content { position: relative; z-index: 2; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: rgba(255,255,255,.08); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 50px;
+  padding: .45rem 1.2rem; font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light);
+  margin-bottom: 1.8rem; animation: fadeUp .8s ease both;
+}
+.hero-for {
+  font-size: var(--fs-sm); color: rgba(255,255,255,.5);
+  font-weight: 600; letter-spacing: .1em;
+  animation: fadeUp .9s .1s ease both;
+  margin-bottom: .4rem;
+}
+.hero-name {
+  font-family: 'Pacifico', cursive;
+  font-size: var(--fs-hero); line-height: 1;
+  background: linear-gradient(135deg, #FF6EC7 0%, #FFD23F 50%, #FF6EC7 100%);
+  background-size: 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 1s .2s ease both, shimmer 5s linear infinite;
+  margin-bottom: .2rem;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
+.hero-last {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: var(--fs-lg); color: rgba(255,255,255,.55);
+  animation: fadeUp 1s .3s ease both; margin-bottom: 1.8rem;
+}
+.hero-divider {
+  width: 100px; height: 2px; margin: 0 auto 1.8rem;
+  background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+  animation: fadeUp 1s .4s ease both;
+}
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: var(--fs-md); color: rgba(255,255,255,.65);
+  max-width: 420px; line-height: 1.65;
+  animation: fadeUp 1s .5s ease both; margin: 0 auto 2.5rem;
+}
+.hero-cta {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.35); font-size: var(--fs-xs);
+  letter-spacing: .18em; text-transform: uppercase;
+  animation: fadeUp 1s .7s ease both;
+}
+.hero-cta-line {
+  width: 1.5px; height: 48px;
+  background: linear-gradient(to bottom, var(--rose-light), transparent);
+  animation: ctaline 2.2s ease-in-out infinite;
+}
+@keyframes ctaline {
+  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  40% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ══════════════════════════════════════
+   SHARED SECTION
+══════════════════════════════════════ */
+.section {
+  padding: clamp(4rem, 10vw, 7rem) clamp(1rem, 5vw, 4rem);
+  position: relative; z-index: 1;
+}
+.eyebrow {
+  text-align: center; font-size: var(--fs-xs); font-weight: 800;
+  letter-spacing: .3em; text-transform: uppercase; margin-bottom: .6rem;
+}
+.heading {
+  font-family: 'Cormorant Garamond', serif; font-weight: 700;
+  font-size: var(--fs-xl); text-align: center;
+  line-height: 1.1; margin-bottom: .5rem;
+}
+.heading em { font-style: italic; color: var(--rose-light); }
+.sub {
+  text-align: center; font-size: var(--fs-sm);
+  margin-bottom: clamp(2rem, 6vw, 4rem);
+  max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.6;
+}
+.container { max-width: 960px; margin: 0 auto; }
+
+/* ══════════════════════════════════════
+   PHOTOS
+══════════════════════════════════════ */
+.photos-section { background: var(--cream); color: var(--dark); }
+.photos-section .eyebrow { color: var(--rose-dark); }
+.photos-section .heading { color: var(--dark); }
+.photos-section .sub { color: #7B6080; }
+
+/* Magazine grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: clamp(.8rem, 2vw, 1.5rem);
+}
+.photo-card {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  background: #e0d0e8;
+}
+.photo-card.hero-photo {
+  grid-column: 1; grid-row: 1 / 3;
+}
+.photo-card img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  display: block;
+  transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.photo-card.hero-photo img { min-height: 420px; }
+.photo-card:not(.hero-photo) img { min-height: 200px; }
+.photo-card:hover img { transform: scale(1.06); }
+
+.photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(18,0,42,.85) 0%, rgba(18,0,42,.1) 55%, transparent 100%);
+  opacity: 0; transition: opacity .4s ease;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.2rem;
+}
+.photo-card:hover .photo-overlay { opacity: 1; }
+.photo-tag {
+  position: absolute; top: 12px; left: 12px;
+  color: #fff; font-size: var(--fs-xs); font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .3rem .85rem; border-radius: 50px;
+}
+.photo-caption {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem); color: #fff; line-height: 1.3;
+}
+
+/* Stack on mobile */
+@media (max-width: 580px) {
+  .photo-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .photo-card.hero-photo { grid-column: 1; grid-row: auto; }
+  .photo-card.hero-photo img { min-height: 300px; }
+  .photo-card:not(.hero-photo) img { min-height: 240px; }
+  .photo-overlay { opacity: 1; }
+}
+
+/* ══════════════════════════════════════
+   TIMELINE
+══════════════════════════════════════ */
+.timeline-section {
+  background: var(--dark-mid);
+  color: #fff;
+}
+.timeline-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 0% 50%, rgba(124,58,237,.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 100% 50%, rgba(233,30,140,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.timeline-section .eyebrow { color: var(--gold-light); }
+.timeline-section .heading em { color: var(--rose-light); }
+.timeline-section .sub { color: rgba(255,255,255,.45); }
+
+.tl-wrap { position: relative; padding-left: 2.5rem; }
+.tl-wrap::before {
+  content: ''; position: absolute;
+  left: .95rem; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--rose), var(--purple), var(--teal));
+}
+.tl-item {
+  position: relative; margin-bottom: clamp(2rem, 5vw, 3rem);
+  padding-left: clamp(1rem, 4vw, 2rem);
+}
+.tl-dot {
+  position: absolute; left: -2.5rem;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; background: var(--dark-mid);
+  border: 2px solid currentColor; z-index: 2;
+  box-shadow: 0 0 0 4px var(--dark-mid);
+  top: 4px;
+}
+.tl-year {
+  font-family: 'Pacifico', cursive; font-size: .9rem;
+  color: var(--gold-light); margin-bottom: .25rem;
+}
+.tl-title {
+  font-family: 'Cormorant Garamond', serif; font-size: var(--fs-lg);
+  color: #fff; margin-bottom: .4rem;
+}
+.tl-text { font-size: var(--fs-sm); color: rgba(255,255,255,.5); line-height: 1.65; }
+
+/* Desktop: alternate sides */
+@media (min-width: 640px) {
+  .tl-wrap {
+    padding-left: 0;
+    display: grid; grid-template-columns: 1fr 2px 1fr;
+    gap: 0 clamp(1rem, 3vw, 2.5rem); align-items: start;
+  }
+  .tl-wrap::before { display: none; }
+  .tl-center-line {
+    grid-column: 2; grid-row: 1 / 99;
+    background: linear-gradient(to bottom, var(--rose), var(--purple), var(--teal));
+    width: 2px; height: 100%; position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0;
+  }
+  .tl-item {
+    padding: 0; margin-bottom: 0; padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  .tl-item.left { grid-column: 1; text-align: right; }
+  .tl-item.right { grid-column: 3; }
+  .tl-dot {
+    position: static; margin: 0 auto;
+  }
+  .tl-item.left .tl-dot { margin-left: auto; margin-right: 0; }
+  .tl-item.right .tl-dot { margin-left: 0; }
+  .tl-dot-wrapper {
+    grid-column: 2; display: flex; justify-content: center; align-items: flex-start; padding-top: 4px;
+    padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  .tl-dot {
+    width: 48px; height: 48px;
+  }
+}
+
+/* ══════════════════════════════════════
+   REASONS
+══════════════════════════════════════ */
+.reasons-section { background: var(--cream); color: var(--dark); }
+.reasons-section .eyebrow { color: var(--purple); }
+.reasons-section .heading { color: var(--dark); }
+.reasons-section .sub { color: #7B6080; }
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(.8rem, 2vw, 1.2rem);
+}
+.r-card {
+  background: #fff; border-radius: var(--radius-md);
+  padding: clamp(1.2rem, 3vw, 1.8rem) clamp(1rem, 2.5vw, 1.5rem);
+  position: relative; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.r-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: var(--bar);
+}
+.r-card:hover { transform: translateY(-8px); box-shadow: 0 20px 56px rgba(0,0,0,.13); }
+.r-num {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(3rem, 8vw, 4rem); line-height: 1;
+  opacity: .1; position: absolute; top: .8rem; right: 1rem;
+  color: var(--accent);
+}
+.r-icon { font-size: 1.8rem; margin-bottom: .6rem; }
+.r-text {
+  font-size: var(--fs-sm); line-height: 1.6;
+  color: #3D2B50; font-weight: 600; position: relative; z-index: 1;
+}
+
+/* ══════════════════════════════════════
+   MESSAGE
+══════════════════════════════════════ */
+.message-section {
+  min-height: 70svh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: clamp(4rem, 10vw, 7rem) clamp(1rem, 5vw, 3rem);
+  background: linear-gradient(135deg, #B5116A 0%, #7C3AED 50%, #00A090 100%);
+  position: relative; overflow: hidden;
+}
+.message-section::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.2) 0%, transparent 70%);
+}
+.msg-inner {
+  position: relative; z-index: 2;
+  max-width: min(680px, 90vw);
+}
+.msg-heart {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 1.5rem;
+  animation: heartbeat 2.5s ease-in-out infinite;
+}
+@keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+.msg-quote {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: var(--fs-lg); color: #fff; line-height: 1.6;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,.2);
+}
+.msg-quote::before { content: '\201C'; color: rgba(255,255,255,.4); font-size: 3rem; line-height: 0; vertical-align: -.5em; margin-right: .1em; }
+.msg-quote::after  { content: '\201D'; color: rgba(255,255,255,.4); font-size: 3rem; line-height: 0; vertical-align: -.5em; margin-left:  .1em; }
+.msg-sig {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: rgba(255,255,255,.9); margin-bottom: .6rem;
+}
+.msg-date {
+  font-size: var(--fs-xs); letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(255,255,255,.45);
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background: var(--dark); color: rgba(255,255,255,.35);
+  text-align: center; padding: 2.5rem 1rem;
+  font-size: var(--fs-xs); letter-spacing: .05em;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+footer strong { color: var(--rose-light); }
+
+/* ══════════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.reveal.up { opacity: 1; transform: translateY(0); }
+.reveal-l { opacity: 0; transform: translateX(-36px); transition: opacity .75s ease, transform .75s ease; }
+.reveal-l.up { opacity: 1; transform: translateX(0); }
+.reveal-r { opacity: 0; transform: translateX(36px); transition: opacity .75s ease, transform .75s ease; }
+.reveal-r.up { opacity: 1; transform: translateX(0); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <span class="nav-logo">Mamá 💖</span>
+  <ul class="nav-links">
+    <li><a href="#fotos">Fotos</a></li>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#razones">Razones</a></li>
+    <li><a href="#mensaje">Mensaje</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="floating-emojis" id="fe-container"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🌸 Feliz Día de las Madres · 2026 🌸</div>
+    <p class="hero-for">Con todo mi amor, para ti</p>
+    <h1 class="hero-name">María Catalina</h1>
+    <p class="hero-last">Cupul Hoil</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">
+      Este sitio es un abrazo hecho de código —<br>
+      para la mujer más importante de mi vida.
+    </p>
+    <a class="hero-cta" href="#fotos">
+      Ver más
+      <span class="hero-cta-line"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ── FOTOS ── -->
+<section class="section photos-section" id="fotos">
+  <div class="container">
+    <p class="eyebrow reveal">📷 </p>
+    <h2 class="heading reveal"><em></em></h2>
+    <p class="sub reveal"></p>
+
+    <div class="photo-grid">
+
+      <div class="photo-card hero-photo reveal-l">
+        <span class="photo-tag" style="background:var(--rose)">💕</span>
+        <img src="foto1.png" alt="Mamá con bebé en hamaca" loading="eager">
+        <div class="photo-overlay">
+         
+        </div>
+      </div>
+
+      <div class="photo-card reveal-r">
+        <span class="photo-tag" style="background:var(--teal)">📸</span>
+        <img src="foto2.png" alt="Mamá y yo" loading="eager">
+        <div class="photo-overlay">
+       
+        </div>
+      </div>
+
+      <div class="photo-card reveal-r" style="transition-delay:.15s">
+        <span class="photo-tag" style="background:var(--purple)"></span>
+        <img src="foto3.png" alt="Celebración" loading="eager">
+        <div class="photo-overlay">
+          <p class="photo-caption"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── TIMELINE ── -->
+<section class="section timeline-section" id="historia">
+  <div class="container">
+    <p class="eyebrow reveal">⭐ Tu historia</p>
+    <h2 class="heading reveal">Una vida llena de <em>amor</em></h2>
+    <p class="sub reveal">Lo que eres hoy me hizo quien soy.</p>
+
+    <!-- Mobile: single column. Desktop: alternating via grid -->
+    <div class="tl-wrap" id="tlwrap">
+
+      <!-- items injected by JS for desktop layout -->
+    </div>
+  </div>
+</section>
+
+<!-- ── RAZONES ── -->
+<section class="section reasons-section" id="razones">
+  <div class="container">
+    <p class="eyebrow reveal">💜 Razones infinitas</p>
+    <h2 class="heading reveal">Por qué <em>te amo</em></h2>
+    <p class="sub reveal">Son muchas más de seis, pero empecemos por aquí.</p>
+
+    <div class="reasons-grid">
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#E91E8C,#FF6EC7);--accent:#E91E8C">
+        <div class="r-num">1</div>
+        <div class="r-icon">🌺</div>
+        <p class="r-text">Porque desde que era bebé, nunca me soltaste. Tu amor fue lo primero que conocí en este mundo.</p>
+      </div>
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#F5A623,#FFD23F);--accent:#F5A623;transition-delay:.1s">
+        <div class="r-num">2</div>
+        <div class="r-icon">🛡️</div>
+        <p class="r-text">Porque siempre me protegiste. Tu fuerza es silenciosa pero nunca la he dudado.</p>
+      </div>
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#00C9B1,#00E5D0);--accent:#00A090;transition-delay:.2s">
+        <div class="r-num">3</div>
+        <div class="r-icon">🌟</div>
+        <p class="r-text">Porque me enseñaste a ser buena persona, con el ejemplo, no solo con palabras.</p>
+      </div>
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#7C3AED,#A78BFA);--accent:#7C3AED;transition-delay:.3s">
+        <div class="r-num">4</div>
+        <div class="r-icon">🤗</div>
+        <p class="r-text">Porque tus abrazos siempre fueron el lugar más seguro y cálido del mundo.</p>
+      </div>
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#FF6B6B,#FFA0A0);--accent:#FF6B6B;transition-delay:.4s">
+        <div class="r-num">5</div>
+        <div class="r-icon">💪</div>
+        <p class="r-text">Porque con poco siempre hiciste mucho. Tu generosidad no tiene límites.</p>
+      </div>
+      <div class="r-card reveal" style="--bar:linear-gradient(90deg,#E91E8C,#7C3AED);--accent:#B5116A;transition-delay:.5s">
+        <div class="r-num">6</div>
+        <div class="r-icon">👑</div>
+        <p class="r-text">Porque simplemente eres la mejor mamá del mundo. No hay otra como tú, María Catalina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENSAJE ── -->
+<section class="message-section" id="mensaje">
+  <div class="msg-inner">
+    <div class="msg-heart">💖</div>
+    <p class="msg-quote reveal">
+      Gracias por cada madrugada que velaste mi sueño, por cada abrazo que no pedí pero necesitaba, por cada sacrificio que hiciste sin decir nada. Eres la razón por la que creo en el amor incondicional. Hoy y siempre, te llevo en el corazón.
+    </p>
+    <p class="msg-sig reveal">Con todo mi amor</p>
+    <p class="msg-date reveal">10 de Mayo de 2026 · Feliz Día, Mamá 🌸</p>
+  </div>
+</section>
+
+<footer>
+  Hecho con <strong>💻 código</strong> y muchísimo <strong>❤️ amor</strong>
+  para <strong>María Catalina Cupul Hoil</strong> 🌺
+</footer>
+
+<script>
+/* ── FLOATING EMOJIS ── */
+const EMOJIS = ['💖','🌸','✨','🌺','💕','⭐','🦋','💗','🌷','💝','🎀','🌼'];
+const feC = document.getElementById('fe-container');
+for (let i = 0; i < 18; i++) {
+  const el = document.createElement('span');
+  el.className = 'fe';
+  el.textContent = EMOJIS[i % EMOJIS.length];
+  const size = .9 + Math.random() * 1.6;
+  el.style.cssText = [
+    `left: ${Math.random()*100}%`,
+    `font-size: ${size}rem`,
+    `animation-duration: ${9 + Math.random()*12}s`,
+    `animation-delay: ${Math.random()*12}s`
+  ].join(';');
+  feC.appendChild(el);
+}
+
+/* ── TIMELINE DATA ── */
+const TL = [
+  { emoji:'🍼', color:'var(--rose)',      year:'El primer día',   title:'Me diste la vida',       text:'Desde el primer momento me miraste con un amor que nunca había sentido.' },
+  { emoji:'🌱', color:'var(--gold)',      year:'Creciendo',       title:'Me enseñaste el mundo',  text:'Cada paso que aprendí a dar fue porque tú estabas ahí para atraparme si caía. Tu paciencia y cariño me formaron.' },
+  { emoji:'🏠', color:'var(--teal)',      year:'Día a día',       title:'Nuestro hogar',          text:'Convertiste cada lugar en un hogar con tu presencia. Tu sonrisa hacía que todo valiera la pena.' },
+  { emoji:'🎈', color:'var(--purple)',    year:'Celebraciones',   title:'Juntos siempre',         text:'Cada cumpleaños, cada fiesta, cada momento especial tiene más sentido cuando estás tú.' },
+  { emoji:'💖', color:'var(--rose-light)',year:'Hoy y siempre',   title:'Mi mayor orgullo',       text:'Hoy, en tu día, solo quiero que sepas que todo lo que soy te lo debo a ti. Eres mi mayor amor.' },
+];
+
+const wrap = document.getElementById('tlwrap');
+const isDesktop = () => window.innerWidth >= 640;
+
+function buildTimeline() {
+  wrap.innerHTML = '';
+  if (isDesktop()) {
+    // alternating 3-column grid
+    wrap.style.cssText = 'display:grid;grid-template-columns:1fr 2px 1fr;gap:0 clamp(1rem,3vw,2.5rem);align-items:start;position:relative;';
+    // center line element
+    const line = document.createElement('div');
+    line.style.cssText = 'grid-column:2;grid-row:1/99;background:linear-gradient(to bottom,var(--rose),var(--purple),var(--teal));width:2px;';
+    wrap.appendChild(line);
+
+    TL.forEach((item, i) => {
+      const isLeft = i % 2 === 0;
+      const side = isLeft ? 'left' : 'right';
+
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'tl-item reveal';
+      contentDiv.style.cssText = `grid-column:${isLeft?1:3};text-align:${isLeft?'right':'left'};padding-bottom:clamp(1.5rem,4vw,3rem);transition-delay:${i*.1}s`;
+      contentDiv.innerHTML = `
+        <p class="tl-year">${item.year}</p>
+        <h3 class="tl-title">${item.title}</h3>
+        <p class="tl-text">${item.text}</p>
+      `;
+
+      const dotDiv = document.createElement('div');
+      dotDiv.style.cssText = `grid-column:2;display:flex;justify-content:center;padding-top:4px;padding-bottom:clamp(1.5rem,4vw,3rem);`;
+      dotDiv.innerHTML = `<div class="tl-dot" style="color:${item.color}">${item.emoji}</div>`;
+
+      if (isLeft) {
+        wrap.appendChild(contentDiv);
+        wrap.appendChild(dotDiv);
+        // empty right placeholder
+        const ph = document.createElement('div');
+        ph.style.cssText = `grid-column:3;padding-bottom:clamp(1.5rem,4vw,3rem);`;
+        wrap.appendChild(ph);
+      } else {
+        const ph = document.createElement('div');
+        ph.style.cssText = `grid-column:1;padding-bottom:clamp(1.5rem,4vw,3rem);`;
+        wrap.appendChild(ph);
+        wrap.appendChild(dotDiv);
+        wrap.appendChild(contentDiv);
+      }
+    });
+  } else {
+    // single column
+    wrap.style.cssText = 'position:relative;padding-left:2.5rem;';
+    const line = document.createElement('div');
+    line.style.cssText = 'position:absolute;left:.95rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--rose),var(--purple),var(--teal));';
+    wrap.appendChild(line);
+
+    TL.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'tl-item reveal';
+      div.style.cssText = `margin-bottom:clamp(1.5rem,4vw,2.5rem);padding-left:clamp(.8rem,3vw,1.8rem);transition-delay:${i*.1}s`;
+      div.innerHTML = `
+        <div class="tl-dot" style="color:${item.color};position:absolute;left:-2.5rem;top:4px;width:44px;height:44px;background:var(--dark-mid);border:2px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 0 0 4px var(--dark-mid);">${item.emoji}</div>
+        <p class="tl-year">${item.year}</p>
+        <h3 class="tl-title">${item.title}</h3>
+        <p class="tl-text">${item.text}</p>
+      `;
+      wrap.appendChild(div);
+    });
+  }
+  // re-observe new elements
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+}
+
+/* ── INTERSECTION OBSERVER ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, idx) => {
+    if (e.isIntersecting) {
+      const delay = parseFloat(e.target.style.transitionDelay || 0);
+      e.target.classList.add('up');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+
+/* ── BUILD TIMELINE ── */
+buildTimeline();
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(buildTimeline, 200);
+});
+</script>
+</body>
+</html>
